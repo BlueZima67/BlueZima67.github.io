@@ -115,7 +115,10 @@ em { font-style: normal; color: var(--accent); }
 .btn--ghost { padding-right: 28px; border-color: rgba(241,241,241,.22); color: var(--paper); background: rgba(11,11,11,.35); }
 .btn--ghost:hover { border-color: var(--paper); background: rgba(241,241,241,.06); }
 .btn--sm { --h: 44px; padding: 0 20px; font-size: 12px; }
-.btn--wide { width: 100%; justify-content: space-between; }
+.btn--wide { width: 100%; }
+/* кнопки со стрелкой: текст строго по центру кнопки, стрелка прижата к правому краю и не сдвигает текст */
+.btn--arrow { position: relative; padding-inline: 62px; justify-content: center; }
+.btn--arrow .btn__arrow { position: absolute; right: 8px; top: 50%; translate: 0 -50%; }
 .btn__arrow {
   display: grid; place-items: center;
   width: 40px; height: 40px; border-radius: 6px;
@@ -431,7 +434,7 @@ em { font-style: normal; color: var(--accent); }
 .pick { position: relative; cursor: pointer; }
 .pick input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
 .pick span {
-  display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 20px 0 16px;
+  display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 42px 0 16px; /* справа = слева + отметка 16 + зазор 10: текст по центру */
   border: 1px solid var(--line); border-radius: var(--r-btn); font-size: 15px;
   transition: background-color .25s var(--ease), border-color .25s, color .25s;
 }
@@ -445,7 +448,6 @@ em { font-style: normal; color: var(--accent); }
 .calc__sum span { display: inline-block; transition: opacity .2s; }
 .calc__time { display: flex; align-items: center; gap: 10px; color: var(--mute); font-size: 15px; }
 .calc__time svg { width: 20px; height: 20px; color: var(--accent-hi); }
-.calc__out .btn { justify-content: space-between; }
 .calc__out .btn.is-disabled { opacity: .4; pointer-events: none; }
 
 /* ---------- reviews ---------- */
@@ -638,8 +640,7 @@ em { font-style: normal; color: var(--accent); }
   .hero__media::after { display: none; } /* верхнее затемнение ложилось на лица заднего ряда */
   .hero__media img { position: absolute; top: 0; left: -74.55%; width: 181.82%; max-width: none; height: auto; margin-top: -13.37%; }
   .hero__lead, .contact__form-wrap, .contact__info { grid-column: 1 / -1; }
-  .hero__cta .btn { width: 100%; justify-content: space-between; }
-  .hero__cta .btn--ghost { justify-content: center; }
+  .hero__cta .btn { width: 100%; }
   .hero__title { font-size: 10.4vw; line-height: 1.06; }
   .headline { line-height: 1.12; } /* многострочные заголовки не слипаются */
   .tile h3 { line-height: 1.25; }
@@ -670,7 +671,7 @@ em { font-style: normal; color: var(--accent); }
   .phone { width: 280px; height: 580px; rotate: -2deg; }
   .phone-stage__ring { width: 420px; height: 420px; }
   .seg span { height: 52px; font-size: 11px; letter-spacing: .04em; }
-  .pick span { height: 44px; font-size: 14px; padding: 0 16px 0 12px; }
+  .pick span { height: 44px; font-size: 14px; padding: 0 38px 0 12px; }
   .form { grid-template-columns: 1fr; }
   .contact__info { display: flex; flex-direction: column; align-items: stretch; }
   .faq details p { padding-right: 0; }

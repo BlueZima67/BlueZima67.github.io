@@ -168,12 +168,15 @@ em { font-style: normal; color: var(--accent); }
   isolation: isolate; overflow: hidden;
 }
 /* фото команды на всю ширину блока в родной пропорции — без обрезки, лица всегда на одной высоте */
-.hero__media { position: absolute; top: 0; left: 0; z-index: -2; width: 100%; aspect-ratio: 2688 / 1520; }
+.hero__media {
+  position: absolute; top: 0; left: 0; z-index: -2; width: 100%; aspect-ratio: 2688 / 1520;
+  /* низ фото растворяется маской, а не наложением — иначе на дробной высоте остаётся светлая полоска */
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 40%); mask-image: linear-gradient(to top, transparent, #000 40%);
+}
 .hero__media::after { /* затемнение для читаемости текста и уход фото в фон снизу */
   content: ""; position: absolute; inset: 0;
   background:
     linear-gradient(90deg, rgba(11,11,11,.85) 0%, rgba(11,11,11,.5) 28%, rgba(11,11,11,0) 44%),
-    linear-gradient(0deg, var(--ink) 0%, rgba(11,11,11,0) 40%),
     linear-gradient(180deg, rgba(11,11,11,.7) 0%, rgba(11,11,11,0) 16%);
 }
 .hero__media img {
@@ -496,11 +499,8 @@ em { font-style: normal; color: var(--accent); }
 
 /* ---------- contact ---------- */
 .contact { position: relative; margin-top: var(--gap); padding-block: clamp(80px, 10vw, 140px); isolation: isolate; overflow: hidden; border-top: 1px solid var(--line); }
-.contact__media { position: absolute; inset: 0 0 0 40%; z-index: -1; }
-.contact__media img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.75); }
-.contact__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--ink) 0%, rgba(11,11,11,.4) 50%, rgba(11,11,11,.75) 100%); }
 .contact__grid { align-items: start; row-gap: 56px; }
-.contact__form-wrap { grid-column: 1 / span 5; display: flex; flex-direction: column; gap: 40px; }
+.contact__form-wrap { grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 40px; }
 .form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field label { font: 500 12px/1.2 var(--f-body); letter-spacing: .07em; text-transform: uppercase; color: var(--mute); }
@@ -596,7 +596,8 @@ em { font-style: normal; color: var(--accent); }
   .burger { display: block; }
   .hero { min-height: 0; justify-content: flex-start; }
   .hero__media { position: relative; top: auto; right: auto; width: 100%; margin-top: 76px; }
-  .hero__media::after { background: linear-gradient(0deg, var(--ink) 0%, rgba(11,11,11,0) 32%), linear-gradient(180deg, rgba(11,11,11,.45) 0%, rgba(11,11,11,0) 18%); }
+  .hero__media::after { background: linear-gradient(180deg, rgba(11,11,11,.45) 0%, rgba(11,11,11,0) 18%); }
+  .hero__media { -webkit-mask-image: linear-gradient(to top, transparent, #000 32%); mask-image: linear-gradient(to top, transparent, #000 32%); }
   .hero__content { padding-top: 8px; }
   .badge { top: calc(76px + 100vw * 1520 / 2688 + 8px); } /* под фото, справа от заголовка */
   .hero__title { grid-column: 1 / -1; max-width: none; }
@@ -606,6 +607,8 @@ em { font-style: normal; color: var(--accent); }
   .tile { grid-column: span 6; }
   .tile--xl { grid-column: 1 / -1; grid-row: span 2; }
   .gauge { grid-column: 1 / -1; grid-row: 1; max-width: 520px; }
+  .gauge-grid { grid-template-rows: auto 1fr 1fr; } /* строки статистики одной высоты */
+  .gstat { align-self: stretch; }
   .gstat--l1, .gstat--l2, .gstat--r1, .gstat--r2 { grid-column: span 6; grid-row: auto; justify-self: stretch; align-items: flex-start; text-align: left; padding-top: 28px; border-top: 1px solid var(--line); }
   .process__head { grid-column: 1 / -1; position: static; margin-bottom: 48px; }
   .steps { grid-column: 1 / -1; }
@@ -617,22 +620,27 @@ em { font-style: normal; color: var(--accent); }
   .head__aside, .rating { grid-column: 1 / -1; justify-self: start; }
   .faq__title { grid-column: 1 / -1; margin-bottom: 32px; }
   .faq__list { grid-column: 1 / -1; }
-  .contact__form-wrap { grid-column: 1 / span 8; }
-  .contact__info { grid-column: 1 / span 8; }
-  .contact__media { inset: 0; opacity: .5; }
+  .contact__form-wrap { grid-column: 1 / -1; }
+  /* без фото: карта слева, контакты справа — блок заполняет ширину */
+  .contact__info { grid-column: 1 / -1; display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: auto 1fr; gap: 24px 32px; align-items: start; }
+  .map { grid-row: 1 / span 2; }
 }
 
 @media (max-width: 767px) {
   .nav__phone { display: none; }
   .nav__actions .btn--sm { display: none; }
-  .hero__content { row-gap: 22px; }
+  .hero__content { row-gap: 22px; padding-top: 20px; }
+  .hero__media { order: -2; }
+  .badge { order: -1; } /* бейдж между фото и заголовком */
   .hero__media { aspect-ratio: 4 / 3; } /* кадрируем на команду — она в правой части фото */
   .hero__media img { object-position: 76% 50%; }
   .hero__lead, .contact__form-wrap, .contact__info { grid-column: 1 / -1; }
   .hero__cta .btn { width: 100%; justify-content: space-between; }
   .hero__cta .btn--ghost { justify-content: center; }
-  .hero__title { font-size: 10.4vw; }
-  .badge { position: relative; top: auto; right: auto; width: 112px; height: 112px; margin: 28px var(--margin) 0 auto; flex: none; }
+  .hero__title { font-size: 10.4vw; line-height: 1.06; }
+  .headline { line-height: 1.12; } /* многострочные заголовки не слипаются */
+  .tile h3 { line-height: 1.25; }
+  .badge { position: relative; top: auto; right: auto; width: 112px; height: 112px; margin: -44px var(--margin) 0 auto; flex: none; z-index: 1; }
   .badge__core { inset: 26px; }
   .badge__core b { font-size: 12px; }
   .badge__core span { font-size: 8px; }
@@ -652,7 +660,8 @@ em { font-style: normal; color: var(--accent); }
   .scan__shade { background: linear-gradient(180deg, var(--ink) 0%, rgba(11,11,11,0) 22%, rgba(11,11,11,0) 80%, var(--ink) 100%); }
   .scan__head .headline, .scan__head p { grid-column: 1 / -1; }
   .steps { padding-left: 32px; }
-  .step { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+  .step { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+  .step h3 { line-height: 1.25; margin-bottom: 14px; }
   .step::before { left: -36px; top: 36px; }
   .phone-stage { min-height: 620px; }
   .phone { width: 280px; height: 580px; rotate: -2deg; }
@@ -660,6 +669,7 @@ em { font-style: normal; color: var(--accent); }
   .seg span { height: 52px; font-size: 11px; letter-spacing: .04em; }
   .pick span { height: 44px; font-size: 14px; padding: 0 16px 0 12px; }
   .form { grid-template-columns: 1fr; }
+  .contact__info { display: flex; flex-direction: column; align-items: stretch; }
   .faq details p { padding-right: 0; }
   .footer__row > * { grid-column: 1 / -1; justify-self: start !important; }
   .hotspot__card { max-width: 170px; }

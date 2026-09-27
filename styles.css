@@ -650,9 +650,9 @@ em { font-style: normal; color: var(--accent); }
   .badge__core b { font-size: 12px; }
   .badge__core span { font-size: 8px; }
   .badge text { font-size: 13.5px; }
-  /* на телефоне по кругу одна фраза: буквы крупнее, разрядка подобрана так, чтобы фраза ровно замыкала окружность (2π·62) */
+  /* на телефоне по кругу фраза дважды; разрядка подобрана так, чтобы текст ровно замыкал окружность (2π·62) */
   .badge__txt--full { display: none; }
-  .badge text.badge__txt--short { display: inline; font-size: 20px; letter-spacing: .368em; }
+  .badge text.badge__txt--short { display: inline; font-size: 13.5px; letter-spacing: .121em; }
   .hero__facts { margin-top: 48px; row-gap: 18px; }
   .hero__facts li { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: baseline; padding-top: 14px; }
   .marquee { padding: 18px 0; }

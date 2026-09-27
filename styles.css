@@ -632,8 +632,11 @@ em { font-style: normal; color: var(--accent); }
   .hero__content { row-gap: 22px; padding-top: 20px; }
   .hero__media { order: -2; }
   .badge { order: -1; } /* бейдж между фото и заголовком */
-  .hero__media { aspect-ratio: 4 / 3; } /* кадрируем на команду — она в правой части фото */
-  .hero__media img { object-position: 76% 50%; }
+  /* крупный план команды: кадр = область фото x 41–96%, y 13–91% (команда по центру, лица крупнее).
+     Ширина img = 1 / 0.55, сдвиг влево = 0.41 / 0.55, сдвиг вверх = 0.13 × высоту фото в долях ширины кадра */
+  .hero__media { aspect-ratio: 1478 / 1186; overflow: hidden; }
+  .hero__media::after { display: none; } /* верхнее затемнение ложилось на лица заднего ряда */
+  .hero__media img { position: absolute; top: 0; left: -74.55%; width: 181.82%; max-width: none; height: auto; margin-top: -13.37%; }
   .hero__lead, .contact__form-wrap, .contact__info { grid-column: 1 / -1; }
   .hero__cta .btn { width: 100%; justify-content: space-between; }
   .hero__cta .btn--ghost { justify-content: center; }

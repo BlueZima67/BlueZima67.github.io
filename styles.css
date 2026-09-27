@@ -597,13 +597,8 @@ em { font-style: normal; color: var(--accent); }
   .nav__inner { grid-template-columns: auto 1fr; }
   .nav__actions { grid-column: 2; }
   .burger { display: block; }
-  .hero { min-height: 0; justify-content: flex-start; }
-  .hero__media { position: relative; top: auto; right: auto; width: 100%; margin-top: 76px; }
-  .hero__media::after { background: linear-gradient(180deg, rgba(11,11,11,.45) 0%, rgba(11,11,11,0) 18%); }
-  .hero__media { -webkit-mask-image: linear-gradient(to top, transparent, #000 32%); mask-image: linear-gradient(to top, transparent, #000 32%); }
-  .hero__content { padding-top: 8px; }
-  .badge { top: calc(76px + 100vw * 1520 / 2688 + 8px); } /* под фото, справа от заголовка */
-  .hero__title { grid-column: 1 / -1; max-width: none; }
+  /* планшет: компоновка как на десктопе (фото за текстом, бейдж справа на уровне заголовка); высота — по содержимому */
+  .hero { min-height: 0; }
   .hero__lead { grid-column: 1 / span 7; }
   .hero__cta { grid-column: 1 / -1; }
   .mosaic { grid-auto-rows: 260px; }
@@ -629,9 +624,20 @@ em { font-style: normal; color: var(--accent); }
   .map { grid-row: 1 / span 2; }
 }
 
+@media (min-width: 768px) and (max-width: 959px) {
+  /* вертикальный планшет: справа от лица сидящего мастера бейдж не помещается — ставим его сразу под лицом (0.46 высоты фото + радиус лица) */
+  .badge { top: calc(28.5vw + 6px); }
+}
+
 @media (max-width: 767px) {
   .nav__phone { display: none; }
   .nav__actions .btn--sm { display: none; }
+  /* телефон: фото сверху, под ним бейдж и текст */
+  .hero { justify-content: flex-start; }
+  .hero__media { position: relative; top: auto; right: auto; width: 100%; margin-top: 76px; }
+  .hero__media { -webkit-mask-image: linear-gradient(to top, transparent, #000 32%); mask-image: linear-gradient(to top, transparent, #000 32%); }
+  .hero__title { grid-column: 1 / -1; max-width: none; }
+  .hero__cta { grid-column: 1 / -1; }
   .hero__content { row-gap: 22px; padding-top: 20px; }
   .hero__media { order: -2; }
   .badge { order: -1; } /* бейдж между фото и заголовком */

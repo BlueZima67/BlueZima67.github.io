@@ -205,6 +205,7 @@ em { font-style: normal; color: var(--accent); }
 }
 .badge svg { width: 100%; height: 100%; animation: spin 26s linear infinite; }
 .badge text { font: 500 10.5px var(--f-body); letter-spacing: .2em; fill: rgba(241,241,241,.75); }
+.badge__txt--short { display: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .badge__core {
   position: absolute; inset: 34px; border-radius: 50%; background: var(--accent);
@@ -649,6 +650,9 @@ em { font-style: normal; color: var(--accent); }
   .badge__core b { font-size: 12px; }
   .badge__core span { font-size: 8px; }
   .badge text { font-size: 13.5px; }
+  /* на телефоне по кругу одна фраза: буквы крупнее, разрядка подобрана так, чтобы фраза ровно замыкала окружность (2π·62) */
+  .badge__txt--full { display: none; }
+  .badge text.badge__txt--short { display: inline; font-size: 20px; letter-spacing: .368em; }
   .hero__facts { margin-top: 48px; row-gap: 18px; }
   .hero__facts li { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: baseline; padding-top: 14px; }
   .marquee { padding: 18px 0; }

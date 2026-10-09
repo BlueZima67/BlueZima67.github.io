@@ -312,6 +312,7 @@ em { font-style: normal; color: var(--accent); }
 .gstat--l2, .gstat--r2 { padding-top: 40px; border-top: 1px solid var(--line); }
 
 /* ---------- scan (photo pause) ---------- */
+.scan[hidden] { display: none; } /* на мобильных .scan получает display: flex — без этого hidden не сработал бы */
 .scan { position: relative; margin-top: var(--gap); height: min(92vh, 920px); min-height: 560px; overflow: hidden; isolation: isolate; }
 .scan__media { position: absolute; inset: -6% 0; z-index: 0; will-change: transform; }
 .scan__media img { width: 100%; height: 100%; object-fit: cover; object-position: var(--ox, 50%) 50%; filter: brightness(.62) contrast(1.12) saturate(.9); }
